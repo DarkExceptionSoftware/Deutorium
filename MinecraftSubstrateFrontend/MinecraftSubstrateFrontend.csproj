@@ -35,6 +35,9 @@
     <Compile Update="Forms\OpenWorldForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\ProgressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\TileInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>

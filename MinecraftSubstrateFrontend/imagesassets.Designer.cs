@@ -63,6 +63,16 @@ namespace MinecraftSubstrateFrontend {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cache {
+            get {
+                object obj = ResourceManager.GetObject("cache", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap height {
             get {
                 object obj = ResourceManager.GetObject("height", resourceCulture);
@@ -153,6 +163,16 @@ namespace MinecraftSubstrateFrontend {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap screenshot {
+            get {
+                object obj = ResourceManager.GetObject("screenshot", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap stempel {
             get {
                 object obj = ResourceManager.GetObject("stempel", resourceCulture);
@@ -166,6 +186,16 @@ namespace MinecraftSubstrateFrontend {
         internal static System.Drawing.Bitmap teset {
             get {
                 object obj = ResourceManager.GetObject("teset", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap trash {
+            get {
+                object obj = ResourceManager.GetObject("trash", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace MinecraftSubstrateFrontend
 {
-	class Tile
+	[Serializable]
+	public class Tile
 	{
+		[Serializable]
 		public struct tile
 		{
 			public int x;
@@ -16,7 +18,10 @@ namespace MinecraftSubstrateFrontend
 			public int[,] water;
 			public int[,] id;
 			public bool exact;
-		
+			public object Clone()
+			{
+				return this.MemberwiseClone();
+			}
 		}
 	}
 }

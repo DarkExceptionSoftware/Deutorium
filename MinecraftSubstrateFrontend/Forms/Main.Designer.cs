@@ -45,10 +45,12 @@ namespace MinecraftSubstrateFrontend
 			this.ts_heightid = new System.Windows.Forms.ToolStripButton();
 			this.ts_water = new System.Windows.Forms.ToolStripButton();
 			this.ts_perf = new System.Windows.Forms.ToolStripButton();
+			this.ts_cache = new System.Windows.Forms.ToolStripButton();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.toolStrip2 = new System.Windows.Forms.ToolStrip();
 			this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton15 = new System.Windows.Forms.ToolStripButton();
+			this.ts_screenshot = new System.Windows.Forms.ToolStripButton();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.statusStrip1.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -147,10 +149,12 @@ namespace MinecraftSubstrateFrontend
             this.toolStripButton20,
             this.ts_heightid,
             this.ts_water,
-            this.ts_perf});
+            this.ts_perf,
+            this.ts_cache,
+            this.ts_screenshot});
 			this.toolStrip3.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip3.Name = "toolStrip3";
-			this.toolStrip3.Size = new System.Drawing.Size(272, 50);
+			this.toolStrip3.Size = new System.Drawing.Size(375, 50);
 			this.toolStrip3.Stretch = true;
 			this.toolStrip3.TabIndex = 2;
 			this.toolStrip3.Text = "toolStrip3";
@@ -225,6 +229,17 @@ namespace MinecraftSubstrateFrontend
 			this.ts_perf.Text = "toolStripButton8";
 			this.ts_perf.Click += new System.EventHandler(this.ts_perf_click);
 			// 
+			// ts_cache
+			// 
+			this.ts_cache.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.ts_cache.Image = global::MinecraftSubstrateFrontend.imagesassets.cache;
+			this.ts_cache.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.ts_cache.Name = "ts_cache";
+			this.ts_cache.Size = new System.Drawing.Size(36, 47);
+			this.ts_cache.Text = "toolStripButton1";
+			this.ts_cache.ToolTipText = "Save Cache";
+			this.ts_cache.Click += new System.EventHandler(this.ts_cache_Click);
+			// 
 			// flowLayoutPanel1
 			// 
 			this.flowLayoutPanel1.AutoSize = true;
@@ -275,6 +290,17 @@ namespace MinecraftSubstrateFrontend
 			this.toolStripButton15.Text = "toolStripButton7";
 			this.toolStripButton15.ToolTipText = "Welt laden";
 			this.toolStripButton15.Click += new System.EventHandler(this.ts_openworld);
+			// 
+			// ts_screenshot
+			// 
+			this.ts_screenshot.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.ts_screenshot.Image = global::MinecraftSubstrateFrontend.imagesassets.screenshot;
+			this.ts_screenshot.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.ts_screenshot.Name = "ts_screenshot";
+			this.ts_screenshot.Size = new System.Drawing.Size(36, 47);
+			this.ts_screenshot.Text = "toolStripButton1";
+			this.ts_screenshot.ToolTipText = "take screenshot";
+			this.ts_screenshot.Click += new System.EventHandler(this.ts_screenshot_Click);
 			// 
 			// Main
 			// 
@@ -331,6 +357,8 @@ namespace MinecraftSubstrateFrontend
 		private System.Windows.Forms.ToolStripButton ts_perf;
 		private System.Windows.Forms.ToolStripButton ts_id;
 		private System.Windows.Forms.ToolStripButton ts_heightid;
+		private System.Windows.Forms.ToolStripButton ts_cache;
+		private System.Windows.Forms.ToolStripButton ts_screenshot;
 	}
 }
 

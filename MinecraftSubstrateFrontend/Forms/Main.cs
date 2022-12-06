@@ -19,6 +19,7 @@ using static MinecraftSubstrateFrontend.helper.Heightbitmap;
 using MinecraftSubstrateFrontend.helper;
 using WindowsApplication1;
 using System.Reflection;
+using MinecraftSubstrateFrontend.Classes;
 
 namespace MinecraftSubstrateFrontend
 {
@@ -53,6 +54,12 @@ namespace MinecraftSubstrateFrontend
 				}
 			}
 
+			perf_indicator[0] = SetImageColor(new Bitmap(MinecraftSubstrateFrontend.imagesassets.performance), Color.Red);
+			perf_indicator[1] = SetImageColor(new Bitmap(MinecraftSubstrateFrontend.imagesassets.performance), Color.Yellow);
+			perf_indicator[2] = SetImageColor(new Bitmap(MinecraftSubstrateFrontend.imagesassets.performance), Color.Green);
+
+
+
 
 			s = Stopwatch.StartNew();
 
@@ -75,6 +82,7 @@ namespace MinecraftSubstrateFrontend
 
 			this.MouseWheel += MyMouseWheel;
 		}
+		Bitmap[] perf_indicator = new Bitmap[3];
 
 		public void MyMouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
 		{
@@ -125,17 +133,12 @@ namespace MinecraftSubstrateFrontend
 			{
 				handle_pending();
 				tcounted += tcount;
-
-
-
 				tcount = 0;
 				progress = 100f / 4096 * (float)tcounted;
 				if (backgroundWorker1.CancellationPending == true)
 					break;
-
-					backgroundWorker1.ReportProgress((int)progress);
+				backgroundWorker1.ReportProgress((int)progress);
 			} while (tcounted < 3072);
-
 		}
 
 		private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -144,11 +147,15 @@ namespace MinecraftSubstrateFrontend
 			timer1.Enabled = true;
 			update_image();
 			loop_finished = false;
+			formProgress.Close();
+
 		}
 
 		private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
 		{
 			toolStripProgressBar1.Value = e.ProgressPercentage;
+			formProgress.update(progressUpdate.END, e.ProgressPercentage);
+
 			if (showPerformanceForm)
 				formPerformance.update(pfc.BLOCKS, tcount);
 		}
@@ -385,6 +392,22 @@ namespace MinecraftSubstrateFrontend
 
 		}
 
+		public Bitmap SetImageColor(Bitmap image, Color color)
+		{
+			for (int x = 0; x < image.Width; x++)
+			{
+				for (int y = 0; y < image.Width; y++)
+				{
+					Color value = image.GetPixel(x, y);
+					if (value.A > 0)
+						image.SetPixel(x, y, color);
+				}
+			}
+
+			return image;
+		}
+
+
 		public Bitmap SetImageOpacity(Bitmap image, float opacity)
 		{
 			try
@@ -586,6 +609,14 @@ namespace MinecraftSubstrateFrontend
 
 		private void timer1_Tick(object sender, EventArgs e)
 		{
+			if (all_finished)
+				ts_perf.Image = perf_indicator[2];
+			else if (loop_finished)
+				ts_perf.Image = perf_indicator[1];
+			else
+				ts_perf.Image = perf_indicator[0];
+
+			all_finished = false;
 			s = Stopwatch.StartNew();
 
 			if (old_View_posittion != View_posittion)
@@ -835,8 +866,13 @@ namespace MinecraftSubstrateFrontend
 				if (stop) break;
 			}
 
+			if (loop_finished && !stop)
+				all_finished = true;
+
 			if (!precaching && !stop) loop_finished = true;
 		}
+
+		bool all_finished = false;
 
 		bool loop_finished = false;
 		public bool draw_asset(int xa, int ya, int[,] asset, bool invert)
@@ -1296,6 +1332,7 @@ namespace MinecraftSubstrateFrontend
 
 		private void Form1_FormClosed(object sender, FormClosedEventArgs e)
 		{
+			timer1.Enabled = false;
 			Color[] rgbvalues = ifh.id_palette;
 			byte[] bytevalue = new byte[1024 * 4];
 			int bc = 0;
@@ -1311,7 +1348,32 @@ namespace MinecraftSubstrateFrontend
 			Bitmap bitmap = ifh.PaletteFromBytes(bytevalue);
 
 			bitmap.Save("id_palette.png", ImageFormat.Png);
+
+			if (createCache)
+				savecache();
+
 		}
+
+		void savecache()
+		{
+			string cachedir = "cache\\" + Path.GetFileName(WorldPath);
+
+			DialogResult dialogResult = MessageBox.Show("Save \"" + Path.GetFileName(WorldPath) + "\" cache?", "Save cache", MessageBoxButtons.YesNo);
+			if (dialogResult == DialogResult.Yes)
+			{
+
+				pictureBox1.Visible = false;
+				ws.serialize(cachedir, tiles);
+				pictureBox1.Visible = true;
+				createCache = true;
+			}
+
+		}
+
+		worldserializer ws = new worldserializer();
+
+
+
 
 		private void cmpbinfo_Click(object sender, EventArgs e)
 		{
@@ -1443,6 +1505,10 @@ namespace MinecraftSubstrateFrontend
 
 		}
 
+		string WorldName = "";
+		public string WorldPath = "";
+		ProgressForm formProgress = new ProgressForm();
+
 		private void ts_openworld(object sender, EventArgs e)
 		{
 			if (showtTileInfoForm)
@@ -1469,7 +1535,7 @@ namespace MinecraftSubstrateFrontend
 
 			OpenWorldForm formOpenworld = new OpenWorldForm(this);
 			DialogResult result = formOpenworld.ShowDialog();
-			
+			formOpenworld.Size = new Size(646, 359);
 			if (backgroundWorker1.IsBusy)
 				backgroundWorker1.CancelAsync();
 
@@ -1478,6 +1544,7 @@ namespace MinecraftSubstrateFrontend
 
 				string folderPath = formOpenworld.SelectedPath;
 				string folderupPath = Path.GetDirectoryName(folderPath);
+				WorldPath = folderPath;
 
 				if (folderPath != "")
 				{
@@ -1488,7 +1555,7 @@ namespace MinecraftSubstrateFrontend
 
 				NbtWorld world = NbtWorld.Open(folderPath);
 				IChunkManager cm = world.GetChunkManager();
-				this.Text = world.Level.LevelName + "[" + world.Level.Version + "] ["+ world.Level.GameType + "]";
+				this.Text = world.Level.LevelName + "[" + world.Level.Version + "] [" + world.Level.GameType + "]";
 				int[] countBlocks = new int[1000];
 
 				chunks = new SortedList<int, ChunkRef>();
@@ -1498,15 +1565,40 @@ namespace MinecraftSubstrateFrontend
 				{
 					chunks.Add((cr.X + 1000) + (cr.Z + 1000) * 2000, cr);
 				}
-				tiles.Clear();
-				timer1.Enabled = false;
 
-				precaching = true;
+				timer1.Enabled = false;
+				tiles.Clear();
+				string cachedir = "cache\\" + Path.GetFileName(WorldPath);
+
+				if (createCache && Directory.Exists(cachedir))
+				{
+					pictureBox1.Visible = false;
+
+					tiles = ws.deserialize(cachedir);
+					pictureBox1.Visible = true;
+
+					timer1.Enabled = true;
+
+				}
+				else
+				{
+					precaching = true;
+				}
+
+
+
+
 				Array.Clear(height_matrix, 0, 256);
 				Array.Clear(byteheight, 0, 4194304);
 				pictureBox1.Image = null;
 				backgroundWorker1.WorkerSupportsCancellation = true;
 				backgroundWorker1.RunWorkerAsync();
+
+				formProgress = new ProgressForm();
+				formProgress.update(progressUpdate.INTENTION, (int)progressbarIntention.CACHING);
+				formProgress.update(progressUpdate.END, 100);
+				formProgress.Show();
+
 				if (!showexternalviewform)
 				{
 					pictureBox1.Image = new Bitmap(MinecraftSubstrateFrontend.imagesassets.precaching);
@@ -1518,6 +1610,19 @@ namespace MinecraftSubstrateFrontend
 						formexternalview.Update(new Bitmap(MinecraftSubstrateFrontend.imagesassets.precaching));
 				}
 
+				if (formOpenworld.createCache)
+				{
+
+					if (!Directory.Exists("cache\\"))
+						Directory.CreateDirectory("cache");
+
+
+					if (!Directory.Exists(cachedir))
+						Directory.CreateDirectory(cachedir);
+
+				}
+
+
 				flowLayoutPanel2.Visible = true;
 
 				if (showexternalviewform)
@@ -1527,9 +1632,13 @@ namespace MinecraftSubstrateFrontend
 				once = true;
 				formOpenworld.Dispose();
 				formOpenworld = null;
+
+
 			}
 
 		}
+		
+		public bool createCache = false;
 
 		bool showPerformanceForm = false;
 		PerformanceForm formPerformance;
@@ -1568,6 +1677,41 @@ namespace MinecraftSubstrateFrontend
 		}
 
 
+		private void ts_cache_Click(object sender, EventArgs e)
+		{
+			savecache();
+		}
+
+		private void ts_screenshot_Click(object sender, EventArgs e)
+		{
+			if (!Directory.Exists("screenshots"))
+				Directory.CreateDirectory("screenshots");
+
+			if (!Directory.Exists("screenshots" + "\\" + Path.GetFileName(WorldPath)))
+				Directory.CreateDirectory("screenshots" + "\\" + Path.GetFileName(WorldPath));
+
+
+					string cachedir;
+			int number = 0;
+			bool done = false;
+			do
+			{
+				cachedir = "screenshots\\" + Path.GetFileName(WorldPath) + "\\" + number++ + ".png";
+
+				if (!File.Exists(cachedir))
+				{
+					result_bitmap.Save(cachedir, ImageFormat.Png);
+					done = true;
+				}
+			} while (!done);
+
+			DialogResult dialogResult = MessageBox.Show("Screenshot saved!\nOpen Directory?", "Save Screenshot", MessageBoxButtons.YesNo);
+			if (dialogResult == DialogResult.Yes)
+			{
+				string dir = AppDomain.CurrentDomain.BaseDirectory + "screenshots\\" + Path.GetFileName(WorldPath);
+				Process.Start("explorer.exe", dir);
+			}
+		}
 
 		int kicked = -1;
 
