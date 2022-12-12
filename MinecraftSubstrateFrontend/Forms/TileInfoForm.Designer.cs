@@ -36,6 +36,8 @@ namespace MinecraftSubstrateFrontend
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.tb_height = new System.Windows.Forms.TextBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.tb_water = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.pb_id)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -82,6 +84,8 @@ namespace MinecraftSubstrateFrontend
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.tb_water);
+			this.groupBox1.Controls.Add(this.label3);
 			this.groupBox1.Controls.Add(this.tb_height);
 			this.groupBox1.Controls.Add(this.label1);
 			this.groupBox1.Controls.Add(this.tb_id);
@@ -89,7 +93,7 @@ namespace MinecraftSubstrateFrontend
 			this.groupBox1.ForeColor = System.Drawing.Color.White;
 			this.groupBox1.Location = new System.Drawing.Point(12, 177);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(138, 128);
+			this.groupBox1.Size = new System.Drawing.Size(138, 175);
 			this.groupBox1.TabIndex = 18;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Point Info";
@@ -97,7 +101,7 @@ namespace MinecraftSubstrateFrontend
 			// tb_height
 			// 
 			this.tb_height.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.tb_height.Location = new System.Drawing.Point(0, 87);
+			this.tb_height.Location = new System.Drawing.Point(6, 87);
 			this.tb_height.Name = "tb_height";
 			this.tb_height.Size = new System.Drawing.Size(126, 29);
 			this.tb_height.TabIndex = 18;
@@ -115,12 +119,32 @@ namespace MinecraftSubstrateFrontend
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Tile View";
 			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.ForeColor = System.Drawing.Color.White;
+			this.label3.Location = new System.Drawing.Point(70, 119);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(62, 15);
+			this.label3.TabIndex = 19;
+			this.label3.Text = "Waterlevel";
+			// 
+			// tb_water
+			// 
+			this.tb_water.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.tb_water.Location = new System.Drawing.Point(6, 137);
+			this.tb_water.Name = "tb_water";
+			this.tb_water.Size = new System.Drawing.Size(126, 29);
+			this.tb_water.TabIndex = 20;
+			this.tb_water.Text = "<333,333>";
+			this.tb_water.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			// 
 			// TileInfoForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.DimGray;
-			this.ClientSize = new System.Drawing.Size(162, 317);
+			this.ClientSize = new System.Drawing.Size(162, 363);
 			this.ControlBox = false;
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
@@ -150,5 +174,7 @@ namespace MinecraftSubstrateFrontend
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.TextBox tb_height;
 		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.TextBox tb_water;
+		private System.Windows.Forms.Label label3;
 	}
 }

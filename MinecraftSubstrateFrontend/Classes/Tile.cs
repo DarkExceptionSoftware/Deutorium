@@ -18,9 +18,16 @@ namespace MinecraftSubstrateFrontend
 			public int[,] water;
 			public int[,] id;
 			public bool exact;
-			public object Clone()
+			public tile Clone()
 			{
-				return this.MemberwiseClone();
+				tile clone = new tile() { x = this.x, y = this.y, exact = this.exact };
+				clone.data = new int[16, 16];
+				clone.water = new int[16, 16];
+				clone.id = new int[16, 16];
+				Array.Copy(this.data, clone.data, 256);
+				Array.Copy(this.water, clone.water, 256);
+				Array.Copy(this.id, clone.id, 256);
+				return clone;
 			}
 		}
 	}

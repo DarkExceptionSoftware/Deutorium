@@ -97,7 +97,6 @@ namespace MinecraftSubstrateFrontend
 						WorldsList.Add(subdir);
 					}
 
-				string key = "";
 
 				panel.Visible = false;
 				foreach (var file in WorldsList)
@@ -109,19 +108,31 @@ namespace MinecraftSubstrateFrontend
 					panel.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 					Label b = new Label();
 					b.Name = "LevelNameLabel" + (panel.RowCount - 1).ToString();
-					b.Text = world.Level.LevelName;
+
+					string foldername = Path.GetFileName(Path.GetDirectoryName(file + "\\"));
+
+					if (world != null)
+						b.Text = world.Level.LevelName;
+					else
+						b.Text = foldername + " BROKEN";
+
 					b.Dock = DockStyle.Fill;
 					b.TextAlign = ContentAlignment.MiddleLeft;
 					b.Click += new EventHandler(MyButtonHandler);
 					b.DoubleClick += new EventHandler(MyDoubleClickHandler);
 					panel.Controls.Add(b, 0, panel.RowCount - 1);
-					panel.Controls.Add(new Label() { Text = world.Level.Version.ToString(), Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft }, 1, panel.RowCount - 1);
-					panel.Controls.Add(new Label() { Text = world.Level.GameType.ToString(), Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft }, 2, panel.RowCount - 1);
 
-					string foldername = Path.GetFileName(Path.GetDirectoryName(file + "\\"));
+					if (world != null)
+					{
+						panel.Controls.Add(new Label() { Text = world.Level.Version.ToString(), Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft }, 1, panel.RowCount - 1);
+						panel.Controls.Add(new Label() { Text = world.Level.GameType.ToString(), Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft }, 2, panel.RowCount - 1);
+
+					}
+
+
 
 					string cachedir = "cache\\" + foldername;
-					if (Directory.Exists(cachedir))
+					if (File.Exists(cachedir + "\\tiles.zlb"))
 					{
 						Button bn = new Button(); bn.Text = "";
 						bn.Name = "LevelNameButton" + (panel.RowCount - 1).ToString();

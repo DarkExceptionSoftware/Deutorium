@@ -18,7 +18,9 @@ namespace MinecraftSubstrateFrontend
 		bool minimized = false;
 		SortedList<int, String> IDs;
 
-		public TileInfoForm(Main Reference, Bitmap TamponBitmap)
+		public enum INFO { HEIGHT, ID, WATERLEVEL }
+
+		public TileInfoForm(Main Reference)
 		{
 			InitializeComponent();
 
@@ -36,17 +38,53 @@ namespace MinecraftSubstrateFrontend
 			}
 		}
 
-		internal void Update(Bitmap bitmap_preview, int h, int id)
+
+		internal void Update(Bitmap bitmap_preview)
 		{
+
+			pb_id.Image = bitmap_preview;
+
+		}
+
+
+		int height = 0;
+		int id = 0;
+		int waterlevel = 0;
+		internal void Update(INFO info, int value)
+		{
+			switch (info)
+			{
+				case INFO.HEIGHT:
+					height = value;
+					break;
+				case INFO.ID:
+					id = value;
+					break;
+				case INFO.WATERLEVEL:
+					waterlevel = value ;
+					break;
+				default:
+					break;
+			}
+
+
 			if (!minimized)
 			{
-				pb_id.Image = bitmap_preview;
-				tb_height.Text = h.ToString();
-				tb_id.Text = IDs[id] + "[" + id + "]";
+				tb_height.Text = height.ToString();
+			tb_id.Text = IDs[id] + "[" + id + "]";
+
+			if (value == -1)
+				tb_water.Text = "no water";
+			else
+				tb_water.Text = waterlevel.ToString();
+
 			}
 			else
 			{
-				this.Text = "[H " + h + "] [ID " + id + "]";
+				string outText = "[H " + height + "] [ID " + id + "]";
+
+				if (waterlevel != -1) outText += "[W " + waterlevel + "]";
+				this.Text = outText;
 			}
 		}
 
@@ -61,7 +99,7 @@ namespace MinecraftSubstrateFrontend
 				if (minimized)
 				{
 					minimized = false;
-					this.Height = 356;
+					this.Height = 402;
 					this.Text = "TileInfo";
 				}
 				else

@@ -13,18 +13,27 @@ namespace MinecraftSubstrateFrontend.Classes
 
 	public class worldserializer
 	{
-		SortedList<int, tile> tiles = new SortedList<int, tile>();
+		public SortedList<int, tile> tiles;
+		public SortedList<int, tile> tiles_edited;
+
 		private System.ComponentModel.BackgroundWorker backgroundWorker1;
 
-		public SortedList<int, tile> deserialize(string path)
+		public bool openfile(string path)
 		{
 			ProgressForm formProgress = new ProgressForm();
 			formProgress.update(progressUpdate.INTENTION, (int)progressbarIntention.LOADING);
-			tiles.Clear();
 
+			bool pack = true;
 			Stream dest = new MemoryStream();
+
+			if (!File.Exists(path + "\\tiles.zlb"))
+				return false;
+
 			using (Stream source = File.OpenRead(path + "\\tiles.zlb"))
 			{
+				BinaryFormatter binaryFormatter = new BinaryFormatter();
+				pack = (bool)binaryFormatter.Deserialize(source);
+
 				formProgress.update(progressUpdate.END, (int)source.Length);
 				formProgress.Show();
 				byte[] buffer = new byte[2048];
@@ -36,22 +45,36 @@ namespace MinecraftSubstrateFrontend.Classes
 				}
 			}
 			dest.Position = 0;
-			Object o;
+			Object o, o2;
 			formProgress.update(progressUpdate.INTENTION, (int)progressbarIntention.UNZIPPING);
 
-			using (var gZipStream = new GZipStream(dest, CompressionMode.Decompress, true))
+			if (pack)
+				using (var gZipStream = new GZipStream(dest, CompressionMode.Decompress, CompressionLevel.BestSpeed, true))
+				{
+					BinaryFormatter binaryFormatter = new BinaryFormatter();
+					// gZipStream.Position = 0;
+					this.tiles = (SortedList<int, tile>)binaryFormatter.Deserialize(gZipStream);
+
+					if (gZipStream.Position != gZipStream.TotalOut)
+						this.tiles_edited = (SortedList<int, tile>)binaryFormatter.Deserialize(gZipStream);
+
+					gZipStream.Close();
+				}
+			else
 			{
 				BinaryFormatter binaryFormatter = new BinaryFormatter();
-				// gZipStream.Position = 0;
-				o = binaryFormatter.Deserialize(gZipStream);
-				gZipStream.Close();
+				this.tiles = (SortedList<int, tile>)binaryFormatter.Deserialize(dest);
+				if (dest.Position != dest.Length)
+					this.tiles_edited = (SortedList<int, tile>)binaryFormatter.Deserialize(dest);
+
 			}
+
 			formProgress.Close();
 
-			return (SortedList<int, tile>)o;
+			return true;
 		}
 
-		public void serialize(string path, SortedList<int, tile> tiles)
+		public void serialize(string path, bool pack = false)
 		{
 			ProgressForm formProgress = new ProgressForm();
 
@@ -64,12 +87,27 @@ namespace MinecraftSubstrateFrontend.Classes
 
 			using (var memoryStream = new System.IO.MemoryStream())
 			{
-				using (var gZipStream = new GZipStream(memoryStream, CompressionMode.Compress))
+				if (pack)
+					using (var gZipStream = new GZipStream(memoryStream, CompressionMode.Compress, CompressionLevel.BestSpeed))
+					{
+						BinaryFormatter binaryFormatter = new BinaryFormatter();
+						binaryFormatter.Serialize(gZipStream, this.tiles);
+
+						if (this.tiles_edited != null)
+							binaryFormatter.Serialize(gZipStream, this.tiles_edited);
+
+						gZipStream.Flush();
+					}
+				else
 				{
 					BinaryFormatter binaryFormatter = new BinaryFormatter();
-					binaryFormatter.Serialize(gZipStream, tiles);
-					gZipStream.Flush();
+					binaryFormatter.Serialize(memoryStream, this.tiles);
+					if (this.tiles_edited != null)
+						binaryFormatter.Serialize(memoryStream, this.tiles_edited);
+
+
 				}
+
 				memoryarray = memoryStream.ToArray();
 
 			}
@@ -78,9 +116,18 @@ namespace MinecraftSubstrateFrontend.Classes
 
 			using (var fs = new FileStream(path + "\\tiles.zlb", FileMode.Create, System.IO.FileAccess.Write))
 			{
+				BinaryFormatter binaryFormatter = new BinaryFormatter();
+
+				binaryFormatter.Serialize(fs, pack);
 				fs.Write(memoryarray, 0, memoryarray.Length);
 				fs.Close();
 			}
+		}
+
+		public void Clear()
+		{
+			this.tiles = null;
+			this.tiles_edited = null;
 		}
 	}
 }
