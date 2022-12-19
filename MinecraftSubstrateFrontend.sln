@@ -7,13 +7,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinecraftSubstrateFrontend"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Substrate", "..\..\..\Downloads\Substrate-2.x\Substrate-2.x\Substrate\Substrate.csproj", "{7264A1C4-AB4A-4437-B252-7379B98B5509}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockReplace", "..\..\..\Downloads\Substrate-2.x\Substrate-2.x\Examples\CS\BlockReplace\BlockReplace.csproj", "{6D24D262-34D3-43A6-B066-1312A0C72B16}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		net40-client-Debug|Any CPU = net40-client-Debug|Any CPU
 		net40-client-Release|Any CPU = net40-client-Release|Any CPU
 		Release|Any CPU = Release|Any CPU
-		test|Any CPU = test|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{52FA9EA7-D2FE-438D-AE0F-10E7885AAAA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -22,10 +23,8 @@ Global
 		{52FA9EA7-D2FE-438D-AE0F-10E7885AAAA9}.net40-client-Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52FA9EA7-D2FE-438D-AE0F-10E7885AAAA9}.net40-client-Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52FA9EA7-D2FE-438D-AE0F-10E7885AAAA9}.net40-client-Release|Any CPU.Build.0 = Release|Any CPU
-		{52FA9EA7-D2FE-438D-AE0F-10E7885AAAA9}.Release|Any CPU.ActiveCfg = Release|x64
-		{52FA9EA7-D2FE-438D-AE0F-10E7885AAAA9}.Release|Any CPU.Build.0 = Release|x64
-		{52FA9EA7-D2FE-438D-AE0F-10E7885AAAA9}.test|Any CPU.ActiveCfg = Release|Any CPU
-		{52FA9EA7-D2FE-438D-AE0F-10E7885AAAA9}.test|Any CPU.Build.0 = Release|Any CPU
+		{52FA9EA7-D2FE-438D-AE0F-10E7885AAAA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52FA9EA7-D2FE-438D-AE0F-10E7885AAAA9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7264A1C4-AB4A-4437-B252-7379B98B5509}.Debug|Any CPU.ActiveCfg = net40-client-Debug|Any CPU
 		{7264A1C4-AB4A-4437-B252-7379B98B5509}.Debug|Any CPU.Build.0 = net40-client-Debug|Any CPU
 		{7264A1C4-AB4A-4437-B252-7379B98B5509}.net40-client-Debug|Any CPU.ActiveCfg = net40-client-Debug|Any CPU
@@ -34,8 +33,14 @@ Global
 		{7264A1C4-AB4A-4437-B252-7379B98B5509}.net40-client-Release|Any CPU.Build.0 = net40-client-Release|Any CPU
 		{7264A1C4-AB4A-4437-B252-7379B98B5509}.Release|Any CPU.ActiveCfg = net40-client-Release|Any CPU
 		{7264A1C4-AB4A-4437-B252-7379B98B5509}.Release|Any CPU.Build.0 = net40-client-Release|Any CPU
-		{7264A1C4-AB4A-4437-B252-7379B98B5509}.test|Any CPU.ActiveCfg = test|Any CPU
-		{7264A1C4-AB4A-4437-B252-7379B98B5509}.test|Any CPU.Build.0 = test|Any CPU
+		{6D24D262-34D3-43A6-B066-1312A0C72B16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D24D262-34D3-43A6-B066-1312A0C72B16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D24D262-34D3-43A6-B066-1312A0C72B16}.net40-client-Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D24D262-34D3-43A6-B066-1312A0C72B16}.net40-client-Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D24D262-34D3-43A6-B066-1312A0C72B16}.net40-client-Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D24D262-34D3-43A6-B066-1312A0C72B16}.net40-client-Release|Any CPU.Build.0 = Release|Any CPU
+		{6D24D262-34D3-43A6-B066-1312A0C72B16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D24D262-34D3-43A6-B066-1312A0C72B16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
