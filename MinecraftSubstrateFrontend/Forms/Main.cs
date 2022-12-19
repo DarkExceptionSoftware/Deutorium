@@ -37,7 +37,7 @@ namespace MinecraftSubstrateFrontend
 		int oxs = 0, oxd = 0, oys = 0, oyd = 0;
 		int tcount = 0;
 		int[,] asset_none = new int[16, 16];
-		int[,] height = new int[1024, 1024];
+		public int[,] profiler = new int[1024, 4];
 		int[,] height_matrix = new int[64, 64];
 		long scount = 0;
 
@@ -216,7 +216,10 @@ namespace MinecraftSubstrateFrontend
 			}
 		}
 
-
+		private void ts_profiler_Click(object sender, EventArgs e)
+		{
+			ts_profiler_toggle(sender, e);
+		}
 
 		long mTotal = 0;
 

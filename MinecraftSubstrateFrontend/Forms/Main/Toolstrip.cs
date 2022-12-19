@@ -21,12 +21,14 @@ namespace MinecraftSubstrateFrontend
 		private bool showPerformanceForm = false;
 		private bool showPosition = false;
 		private bool showtTileInfoForm = false;
+		private bool showProfilerForm = false;
 		private externviewForm formexternalview;
 		private PerformanceForm formPerformance;
 		private PositionForm formPosition;
 		private ProgressForm formProgress = new ProgressForm();
 		private TamponForm formtampon;
 		private TileInfoForm formTileInfo;
+		private ProfilerForm formProfiler;
 
 		private void ts_build_Click(object sender, EventArgs e)
 		{
@@ -156,6 +158,25 @@ namespace MinecraftSubstrateFrontend
 			}
 		}
 
+		private void ts_profiler_toggle(object sender, EventArgs e)
+		{
+			if (!showProfilerForm)
+			{
+				showProfilerForm = true;
+				formProfiler = new ProfilerForm(this);
+				formProfiler.StartPosition = FormStartPosition.Manual;
+				formProfiler.Height = 215;
+				formProfiler.Width = 543;
+				formProfiler.Left = 30;
+				formProfiler.Top = this.Height - formProfiler.Height - 30;
+				formProfiler.Show();
+			}
+			else
+			{
+				showProfilerForm = false;
+				formProfiler.Close();
+			}
+		}
 
 		private void ts_tampon(object sender, EventArgs e)
 		{

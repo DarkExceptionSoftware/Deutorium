@@ -42,11 +42,6 @@ namespace MinecraftSubstrateFrontend
 					for (int y = 0; y < 16; y++)
 					{
 
-						if (!invert)
-							height[x + xa, y + ya] = asset[x, y];
-						else
-							height[x + xa, y + ya] = 255 - asset[x, y];
-
 						int bh = (y + ya) * 4096 + (x + xa) * 4;
 						byte[] returnbyte = ifh.hvbyte(asset[x, y] * 4, Style.colored);
 
@@ -208,7 +203,6 @@ namespace MinecraftSubstrateFrontend
 					{
 						if (xa > -1 && ya > -1 && xa < 1009 && ya < 1009)
 						{
-							height[x + xa, y + ya] = Tile.data[x, y];
 
 							int bh;
 							if (preview) bh = y * 64 + x * 4;
@@ -232,6 +226,18 @@ namespace MinecraftSubstrateFrontend
 							}
 							else
 								returnbyte = ifh.hvbyte(Tile.data[x, y] * 4, _style);
+
+							if (View_posittion.X == x + Tile.x * 16)
+							{
+								profiler[ya, 0] = Tile.data[x, y];
+								profiler[ya, 1] = Tile.water[x, y];
+							}
+
+							if (View_posittion.Y == y + Tile.y * 16)
+							{
+								profiler[xa, 2] = Tile.data[x, y];
+								profiler[xa, 3] = Tile.water[x, y];
+							}
 
 							// byteheight[bh] = 255;
 							if (preview)

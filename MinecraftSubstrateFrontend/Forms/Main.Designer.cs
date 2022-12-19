@@ -50,6 +50,7 @@ namespace MinecraftSubstrateFrontend
 			this.ts_cache = new System.Windows.Forms.ToolStripButton();
 			this.ts_screenshot = new System.Windows.Forms.ToolStripButton();
 			this.ts_removeedited = new System.Windows.Forms.ToolStripButton();
+			this.ts_build = new System.Windows.Forms.ToolStripButton();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.toolStrip2 = new System.Windows.Forms.ToolStrip();
 			this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
@@ -57,7 +58,7 @@ namespace MinecraftSubstrateFrontend
 			this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
 			this.cb_limit = new System.Windows.Forms.CheckBox();
 			this.hs_limit = new System.Windows.Forms.HScrollBar();
-			this.ts_build = new System.Windows.Forms.ToolStripButton();
+			this.ts_profiler = new System.Windows.Forms.ToolStripButton();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.pb_context.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
@@ -163,7 +164,7 @@ namespace MinecraftSubstrateFrontend
 			this.flowLayoutPanel2.Controls.Add(this.toolStrip3);
 			this.flowLayoutPanel2.Location = new System.Drawing.Point(122, 2);
 			this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-			this.flowLayoutPanel2.Size = new System.Drawing.Size(524, 53);
+			this.flowLayoutPanel2.Size = new System.Drawing.Size(670, 53);
 			this.flowLayoutPanel2.TabIndex = 2;
 			this.flowLayoutPanel2.Visible = false;
 			// 
@@ -181,10 +182,11 @@ namespace MinecraftSubstrateFrontend
             this.ts_cache,
             this.ts_screenshot,
             this.ts_removeedited,
-            this.ts_build});
+            this.ts_build,
+            this.ts_profiler});
 			this.toolStrip3.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip3.Name = "toolStrip3";
-			this.toolStrip3.Size = new System.Drawing.Size(507, 50);
+			this.toolStrip3.Size = new System.Drawing.Size(551, 50);
 			this.toolStrip3.Stretch = true;
 			this.toolStrip3.TabIndex = 2;
 			this.toolStrip3.Text = "toolStrip3";
@@ -300,6 +302,18 @@ namespace MinecraftSubstrateFrontend
 			this.ts_removeedited.ToolTipText = "Remove edited tiles";
 			this.ts_removeedited.Click += new System.EventHandler(this.ts_removeedited_Click);
 			// 
+			// ts_build
+			// 
+			this.ts_build.AutoSize = false;
+			this.ts_build.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.ts_build.Image = global::MinecraftSubstrateFrontend.imagesassets.build;
+			this.ts_build.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.ts_build.Margin = new System.Windows.Forms.Padding(3);
+			this.ts_build.Name = "ts_build";
+			this.ts_build.Size = new System.Drawing.Size(44, 44);
+			this.ts_build.Text = "toolStripButton1";
+			this.ts_build.Click += new System.EventHandler(this.ts_build_Click);
+			// 
 			// flowLayoutPanel1
 			// 
 			this.flowLayoutPanel1.AutoSize = true;
@@ -359,7 +373,7 @@ namespace MinecraftSubstrateFrontend
 			this.flowLayoutPanel3.Controls.Add(this.cb_limit);
 			this.flowLayoutPanel3.Controls.Add(this.hs_limit);
 			this.flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-			this.flowLayoutPanel3.Location = new System.Drawing.Point(652, 3);
+			this.flowLayoutPanel3.Location = new System.Drawing.Point(1051, 2);
 			this.flowLayoutPanel3.Name = "flowLayoutPanel3";
 			this.flowLayoutPanel3.Size = new System.Drawing.Size(188, 52);
 			this.flowLayoutPanel3.TabIndex = 6;
@@ -392,17 +406,17 @@ namespace MinecraftSubstrateFrontend
 			this.hs_limit.Value = 255;
 			this.hs_limit.Scroll += new System.Windows.Forms.ScrollEventHandler(this.hs_limit_Scroll);
 			// 
-			// ts_build
+			// ts_profiler
 			// 
-			this.ts_build.AutoSize = false;
-			this.ts_build.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.ts_build.Image = global::MinecraftSubstrateFrontend.imagesassets.build;
-			this.ts_build.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.ts_build.Margin = new System.Windows.Forms.Padding(3);
-			this.ts_build.Name = "ts_build";
-			this.ts_build.Size = new System.Drawing.Size(44, 44);
-			this.ts_build.Text = "toolStripButton1";
-			this.ts_build.Click += new System.EventHandler(this.ts_build_Click);
+			this.ts_profiler.AutoSize = false;
+			this.ts_profiler.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.ts_profiler.Image = global::MinecraftSubstrateFrontend.imagesassets.profiler;
+			this.ts_profiler.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.ts_profiler.Name = "ts_profiler";
+			this.ts_profiler.Size = new System.Drawing.Size(44, 44);
+			this.ts_profiler.Text = "toolStripButton1";
+			this.ts_profiler.ToolTipText = "Profiler öffnen";
+			this.ts_profiler.Click += new System.EventHandler(this.ts_profiler_Click);
 			// 
 			// Main
 			// 
@@ -471,6 +485,7 @@ namespace MinecraftSubstrateFrontend
 		private System.Windows.Forms.ToolStripMenuItem pb_cm_assignid;
 		private System.Windows.Forms.ToolStripButton ts_removeedited;
 		private System.Windows.Forms.ToolStripButton ts_build;
+		private System.Windows.Forms.ToolStripButton ts_profiler;
 	}
 }
 
