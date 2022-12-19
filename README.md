@@ -18,13 +18,13 @@ by using png-images as a tampon.
   around with matrices, depthbuffers, hlsl and textures yet)
 
 
-
-
 BUILDING THE SOURCE
 ===================
 For more debug-control the Minecraft-Substrate-2.x code is referenced as SOURCE,
 not as DLL! You have to inherit the 2.x branch in the project and then
 build Deutorium from Source with the source of Minecraft-substrate/2.x!
+Get the SOURCE FROM https://github.com/minecraft-dotnet/Substrate/tree/2.x
+and unzip it in your users\XXX\downloads-folder!
 
 
 HOW THE VIEWER WORKS
