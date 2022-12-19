@@ -26,6 +26,19 @@ build Deutorium from Source with the source of Minecraft-substrate/2.x!
 Get the SOURCE FROM https://github.com/minecraft-dotnet/Substrate/tree/2.x
 and unzip it in your users\XXX\downloads-folder!
 
+IONIC.ZLIB
+==========
+Ionic.Zlib is required for compiling "Minecraft-Substrate-2.x".
+Select Substrate in solution-explorer, click Project/Manage-Nugets in Menu
+and select to install "ionic.zlib".
+
+
+ID_PALETTE
+==========
+The editor needs a "ID_PALETTE.PNG" in its starting directory in which ID´s are
+translated to colors, shown in the viewport. You can adjust colors in viewport
+easily by selecting a ID in the viewport, RIGHT-CLICK, and define a COLOR for the ID.
+
 
 HOW THE VIEWER WORKS
 ====================
