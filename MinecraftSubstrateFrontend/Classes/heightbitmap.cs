@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -26,10 +27,17 @@ namespace MinecraftSubstrateFrontend.helper
 			id_palette = new Color[1024];
 			bmp = new Bitmap(1024, 1024);
 			minibmp = new Bitmap(16, 16);
-			// var image = new Bitmap(MinecraftSubstrateFrontend.imagesassets.id_palette);
-			Bitmap image = new Bitmap("id_palette.png");
+			
 
-			Rectangle area = new Rectangle(0, 0, image.Width, image.Height);
+Bitmap image;
+			if (File.Exists("id_palette.png"))
+			image = new Bitmap("id_palette.png");
+			else
+				image = new Bitmap(MinecraftSubstrateFrontend.imagesassets.id_palette);
+
+
+
+				Rectangle area = new Rectangle(0, 0, image.Width, image.Height);
 			BitmapData bitmapData = image.LockBits(area, ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
 			int stride = bitmapData.Stride;
 			IntPtr ptr = bitmapData.Scan0;
