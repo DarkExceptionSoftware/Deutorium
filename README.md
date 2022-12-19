@@ -38,7 +38,8 @@ ID_PALETTE
 The editor needs a "ID_PALETTE.PNG" in its starting directory in which ID´s are
 translated to colors, shown in the viewport. You can adjust colors in viewport
 easily by selecting a ID in the viewport, RIGHT-CLICK, and define a COLOR for the ID.
-
+The "ID_PALETTE" can be held flexible and you can keep multiple versions as needed,
+a predefined version is included in the ressources.
 
 HOW THE VIEWER WORKS
 ====================
